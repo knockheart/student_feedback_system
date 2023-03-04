@@ -1,12 +1,10 @@
 # Student Feedback System
 
-`python manage.py startapp metadata`
+## Scope
 
-`python manage.py makemigrations`
-
-`python manage.py migrate`
-
-`python manage.py runserver`
+* Metadata contains all College, University, Branch & Semister information.
+* Created Custom user with inbuild user for custom validation.
+* Create feedback events for students from professors, staff, etc.
 
 
 ## Migrate SQL DDL
