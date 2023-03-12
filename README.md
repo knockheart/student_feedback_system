@@ -25,11 +25,15 @@
 
 ### Step1:
 
+Firstly, Open CMD in Windows OS
+
 Activate virtual environment (create new if not exist)
 
 Create if not exist => $ `python -m venv venv`
 
 $ `venv\Scripts\activate.bat`
+
+$ `pip install -r requirements.txt`
 
 
 ### Step2:
