@@ -36,6 +36,8 @@ $ `venv\Scripts\activate.bat`
 
 run
 
+$ `python manage.py migrate`
+
 $ `python manage.py makemigrations`
 
 $ `python manage.py migrate`
