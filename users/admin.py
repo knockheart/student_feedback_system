@@ -1,8 +1,36 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.admin import AdminSite
 
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
 from users.models import CustomUser
+
+
+class MyAdminSite(AdminSite):
+    """
+    App-specific admin site implementation
+    """
+
+    login_form = AuthenticationForm
+
+    site_header = 'Todomon'
+
+    def has_permission(self, request):
+        """
+        Checks if the current user has access.
+        """
+        print(request.__dict__.keys())
+        print(request.__dict__["path"], request.__dict__["environ"]["QUERY_STRING"])
+        if str(request.__dict__["environ"]["QUERY_STRING"]).lower().strip().strip("/").startswith("feedback"):
+            return request.user.is_active
+        else:
+            return request.user.is_active and request.user.is_staff
+
+
+site = MyAdminSite(name='myadmin')
+
+admin.site = site
 
 
 class CustomUserAdmin(UserAdmin):

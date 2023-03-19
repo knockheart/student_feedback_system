@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+
+
+
+
+
+
+
+
+    </style>
+
+    <!--    <nav class="navbar navbar-inverse visible-xs">-->
+    <!--  <div class="container-fluid">-->
+    <!--    <div class="navbar-header">-->
+    <!--      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--      </button>-->
+    <!--      <a class="navbar-brand" href="#">Student Dashboard</a>-->
+    <!--    </div>-->
+    <!--    <div class="collapse navbar-collapse" id="myNavbar">-->
+    <!--      <ul class="nav navbar-nav">-->
+    <!--        <li class="active"><a href="#">Dashboard</a></li>-->
+    <!--        <li><a href="#">Age</a></li>-->
+    <!--        <li><a href="#">Gender</a></li>-->
+    <!--        <li><a href="#">Geo</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</nav>-->
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Student Dashboard</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="?Dashboard">Dashboard</a></li>
+                <li><a href="?Feedback">Feedback</a></li>
+                <li><a href="?Profile">Profile</a></li>
+                <li><a href="?Logout">Logout</a></li>
+            </ul>
+            <br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Semester Pending FB</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Current Semester FB</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Total Pending Feedback</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Total Feedbacks</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                {% if create_message %}
+                <div class="alert alert-success" role="alert">Feedback Submitted.</div>
+                {% endif %}
+            </div>
+
+            <div class="well">
+                <form action="/feedback/s_main/?feedback" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="feedback_request_email">Email address</label>
+                        <input type="email" class="form-control" id="feedback_request_email"
+                               name="feedback_request_email"
+                               placeholder="name@example.com" value={{ email }} readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback_request_item">Select Feedback Item</label>
+                        <select class="form-control" id="feedback_request_item" name="feedback_request_item">
+                            <option>----------------</option>
+                            {% if feedback_items %}
+                            {% for feedback_item in feedback_items %}
+                            <option>{{ feedback_item.title }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback_request_rating">Rate your feedback</label>
+                        <select class="form-control" id="feedback_request_rating" name="feedback_request_rating">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback_request_message">Describe if Any (Optional)</label>
+                        <textarea class="form-control" id="feedback_request_message" rows="3"
+                                  name="feedback_request_message"></textarea>
+                    </div>
+                    <input type="submit" value="Submit">
+                </form>
+
+                <div>
+                    {% if error_message %}
+                    <div class="alert alert-danger" role="alert">
+                        Please fill all fields.
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

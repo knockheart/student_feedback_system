@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+    <!--    <nav class="navbar navbar-inverse visible-xs">-->
+    <!--  <div class="container-fluid">-->
+    <!--    <div class="navbar-header">-->
+    <!--      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--      </button>-->
+    <!--      <a class="navbar-brand" href="#">Student Dashboard</a>-->
+    <!--    </div>-->
+    <!--    <div class="collapse navbar-collapse" id="myNavbar">-->
+    <!--      <ul class="nav navbar-nav">-->
+    <!--        <li class="active"><a href="#">Dashboard</a></li>-->
+    <!--        <li><a href="#">Age</a></li>-->
+    <!--        <li><a href="#">Gender</a></li>-->
+    <!--        <li><a href="#">Geo</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</nav>-->
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Student Dashboard</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="?Dashboard">Dashboard</a></li>
+                <li><a href="?Feedback">Feedback</a></li>
+                <li><a href="?Profile">Profile</a></li>
+                <li><a href="?Logout">Logout</a></li>
+            </ul>
+            <br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+            <div class="well">
+
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <!--                        <div class="col-md-3 border-right">-->
+                        <!--                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img-->
+                        <!--                                    class="rounded-circle mt-5" width="150px"-->
+                        <!--                                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span-->
+                        <!--                                    class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="col-md-9 border-center">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h2 class="text-center">Profile Settings</h2>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label class="labels">First Name</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="first name"
+                                               value={{ user.student_name }}
+                                               readonly
+                                        >
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">Last Name</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               value=""
+                                               placeholder="surname"
+                                               readonly>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+
+                                    <div class="col-md-12">
+                                        <label class="labels">Email ID</label>
+                                        <input type="text" class="form-control" placeholder="enter email id"
+                                               value={{ user.email }}
+                                               readonly>
+                                    </div>
+
+                                </div>
+                                <!--                                <div class="mt-5 text-center">-->
+                                <!--                                    <button class="btn btn-primary profile-button" type="button">Save Profile</button>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <label class="labels">Student Number</label>
+                        <input type="text" class="form-control" placeholder="enter phone number"
+                               value={{ user.student_id }}
+                               readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels">Course</label>
+                        <input type="text" class="form-control" placeholder="course"
+                               value={{ user.branch_id.course_id }}
+                               readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels">Branch</label>
+                        <input type="text" class="form-control" placeholder="branch"
+                               value={{ user.branch_id }}
+                               readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">College</label>
+                        <input type="text" class="form-control" placeholder="college"
+                               value={{ user.college_id }}
+                               readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels">University</label>
+                        <input type="text" class="form-control" placeholder="university"
+                               value={{ user.college_id.university_id }}
+                               readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels">Current Semester</label>
+                        <input type="text" class="form-control" placeholder="current sem"
+                               value=""
+                               readonly>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+    <!--    <nav class="navbar navbar-inverse visible-xs">-->
+    <!--  <div class="container-fluid">-->
+    <!--    <div class="navbar-header">-->
+    <!--      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--        <span class="icon-bar"></span>-->
+    <!--      </button>-->
+    <!--      <a class="navbar-brand" href="#">Student Dashboard</a>-->
+    <!--    </div>-->
+    <!--    <div class="collapse navbar-collapse" id="myNavbar">-->
+    <!--      <ul class="nav navbar-nav">-->
+    <!--        <li class="active"><a href="#">Dashboard</a></li>-->
+    <!--        <li><a href="#">Age</a></li>-->
+    <!--        <li><a href="#">Gender</a></li>-->
+    <!--        <li><a href="#">Geo</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</nav>-->
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Student Dashboard</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="?Dashboard">Dashboard</a></li>
+                <li><a href="?Feedback">Feedback</a></li>
+                <li><a href="?Profile">Profile</a></li>
+                <li><a href="?Logout">Logout</a></li>
+            </ul>
+            <br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+
+            <div class="well">
+                <h4>Student Name: Abhimanyu HK</h4>
+                <h5>Student Number: 4UB11EC003</h5>
+                <p>Current Semester: 1st Semester</p>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Semester Pending FB</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Current Semester FB</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Total Pending Feedback</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Total Feedbacks</h4>
+                        <p>{{ feedback_item_total_count }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="well">
+                <h5>Your Feedbacks</h5>
+            </div>
+
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if feedbacks %}
+                    {% for feedback in feedbacks %}
+                    <tr>
+                        <th scope="row">{{ feedback.feedback_id }}</th>
+                        <td>{{ feedback.feedback_items }}</td>
+                        <td>{{ feedback.message }}</td>
+                        <td>{{ feedback.rating }}</td>
+                    </tr>
+
+                    {% endfor %}
+                    {% else %}
+                    {% endif %}
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="well">
+                <h5>Pending Feedbacks</h5>
+            </div>
+
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if feedback_items %}
+                    {% for feedback_item in feedback_items %}
+                    <tr>
+                        <th scope="row">{{ feedback_item.feedback_id }}</th>
+                        <td>{{ feedback_item.title }}</td>
+                    </tr>
+
+                    {% endfor %}
+                    {% else %}
+                    {% endif %}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

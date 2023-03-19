@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'metadata',
     "users",
     'feedback',
+
+    'bootstrap5',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.CustomUser"
 # AUTHENTICATION_BACKENDS = ('users.backends.MyAuthBackend','django.contrib.auth.backends.ModelBackend',)
 AUTHENTICATION_BACKENDS = ['users.backends.MyAuthBackend']
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+# LOGIN_URL = '/feedback/login/'
+# LOGIN_REDIRECT_URL = '/feedback/login/'
+

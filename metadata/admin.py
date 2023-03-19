@@ -1,6 +1,6 @@
-from django.contrib import admin
 
 from metadata.models import University, College, Course, Branch
+from users import admin
 
 admin.site.register(University)
 admin.site.register(College)
