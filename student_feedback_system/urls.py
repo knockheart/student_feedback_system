@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-admin.site.site_header = 'SFS administration'
+from student_portal.admin import student_admin_site
+
+admin.site.site_header = 'SFS V1 Admin Portal'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('feedback/', include('feedback.urls')),
+    path(r'admin/', admin.site.urls),
+    # path('feedback/', include('feedback.urls')),
+    path(r'student/', student_admin_site.urls)
 ]

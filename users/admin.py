@@ -1,10 +1,10 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.admin import AdminSite
 
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
-from users.models import CustomUser
+from users.models import Admin, Student, Professor
 
 
 class MyAdminSite(AdminSite):
@@ -36,7 +36,7 @@ admin.site = site
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    # model = CustomUser
+    # model = Admin
 
     list_display = ("student_id", "email", "is_staff", "is_active",)
     list_filter = ("student_id", "email", "is_staff", "is_active",)
@@ -59,4 +59,21 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Admin, CustomUserAdmin)
+
+
+class StudentAdmin(admin.ModelAdmin):
+    model = Student
+    list_display = ['student_id', 'student_name', 'branch_id', 'email', 'phone_number']
+    # list_editable = [ 'student_name', 'email', 'phone_number']
+
+
+admin.site.register(Student, StudentAdmin)
+
+
+class ProfessorAdmin(admin.ModelAdmin):
+    model = Professor
+    list_display = ['professor_id', 'professor_name', 'branch_id', 'email', 'phone_number']
+
+
+admin.site.register(Professor, ProfessorAdmin)

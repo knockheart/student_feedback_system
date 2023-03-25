@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'metadata',
     "users",
     'feedback',
+    'feedback_to_professors',
 
     'bootstrap5',
     'crispy_forms',
@@ -124,7 +125,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "users.CustomUser"
+AUTH_USER_MODEL = "users.Admin"
 # AUTHENTICATION_BACKENDS = ('users.backends.MyAuthBackend','django.contrib.auth.backends.ModelBackend',)
 AUTHENTICATION_BACKENDS = ['users.backends.MyAuthBackend']
 

@@ -9,7 +9,7 @@ from passlib.hash import django_pbkdf2_sha256
 
 from feedback.forms import FeedbackRequest
 from feedback.models import FeedbackItems, Feedback
-from users.models import CustomUser
+from users.models import Admin
 
 
 class StudentMainPage(LoginRequiredMixin, View):
@@ -30,7 +30,7 @@ class StudentMainPage(LoginRequiredMixin, View):
         query_string = request.__dict__["environ"]["QUERY_STRING"]
         user_email = request.__dict__["user"]
 
-        user_object = CustomUser.objects.get(email=user_email)
+        user_object = Admin.objects.get(email=user_email)
 
         if query_string and query_string.lower() == "feedback":
             feedback_items = FeedbackItems.objects.all()
@@ -60,7 +60,7 @@ class StudentMainPage(LoginRequiredMixin, View):
         query_string = request.__dict__["environ"]["QUERY_STRING"]
         user_email = request.__dict__["user"]
 
-        user_object = CustomUser.objects.get(email=user_email)
+        user_object = Admin.objects.get(email=user_email)
 
         if query_string and query_string.lower() == "feedback":
             print("POST")
@@ -86,7 +86,7 @@ class StudentMainPage(LoginRequiredMixin, View):
                 print("valid")
                 print(feedback_request.__dict__["data"])
                 form_data = feedback_request.__dict__["data"]
-                user_object = CustomUser.objects.get(email=form_data["feedback_request_email"])
+                user_object = Admin.objects.get(email=form_data["feedback_request_email"])
                 feedback_items = FeedbackItems.objects.get(title=form_data["feedback_request_item"])
                 feed_back = Feedback(
                     feedback_items=feedback_items,
@@ -123,7 +123,7 @@ class StudentMainPage(LoginRequiredMixin, View):
 #             login_password = form.__dict__["data"]["login_password"]
 #
 #             try:
-#                 user: CustomUser = CustomUser.objects.get(email=login_email)
+#                 user: Admin = Admin.objects.get(email=login_email)
 #                 print("user", user)
 #                 print(user.password)
 #                 is_valid = django_pbkdf2_sha256.verify(login_password, user.password)
@@ -133,7 +133,7 @@ class StudentMainPage(LoginRequiredMixin, View):
 #                     # return redirect('/feedback/s_main/')
 #                 else:
 #                     raise Exception("Invalid Password")
-#             except CustomUser.DoesNotExist as does_not_exist:
+#             except Admin.DoesNotExist as does_not_exist:
 #                 print(does_not_exist)
 #                 errors = form.__dict__["_errors"]
 #             except Exception as exception:

@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.auth.backends import ModelBackend
 
-from users.models import CustomUser as UserModel
+from users.models import Admin as UserModel
 
 
 class MyAuthBackend(ModelBackend):

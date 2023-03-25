@@ -8,44 +8,7 @@ from metadata.models import Branch, College
 from .managers import CustomUserManager
 
 
-# class University(models.Model):
-#     university_id = models.CharField(max_length=100, primary_key=True)
-#     university_name = models.CharField(max_length=200)
-#     address = models.CharField(max_length=200)
-#
-#     def __str__(self):
-#         return self.university_name
-#
-#
-# class College(models.Model):
-#     college_id = models.CharField(max_length=200, primary_key=True)
-#     college_name = models.CharField(max_length=200)
-#     address = models.CharField(max_length=200)
-#
-#     university_id = models.ForeignKey(University, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return self.college_name
-#
-#
-# class Course(models.Model):
-#     course_id = models.CharField(max_length=200, primary_key=True)
-#     course_name = models.CharField(max_length=200)
-#
-#     def __str__(self):
-#         return self.course_name
-#
-#
-# class Branch(models.Model):
-#     branch_id = models.CharField(max_length=200, primary_key=True)
-#     branch_name = models.CharField(max_length=200, unique=True)
-#     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return self.branch_name
-
-
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class Admin(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
     student_id = models.CharField(max_length=200)
     student_name = models.CharField(max_length=200)
@@ -82,3 +45,37 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # this methods are require to login super user from admin panel
     def has_module_perms(self, app_label):
         return self.is_staff
+
+
+class Student(models.Model):
+    email = models.EmailField(_("email address"), unique=True)
+    student_id = models.CharField(max_length=200)
+    student_name = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+
+    branch_id = models.ForeignKey(Branch, null=True, on_delete=models.SET_NULL)
+    college_id = models.ForeignKey(College, null=True, on_delete=models.SET_NULL)
+
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.student_name
+
+
+class Professor(models.Model):
+    email = models.EmailField(_("email address"), unique=True)
+    professor_id = models.CharField(max_length=200)
+    professor_name = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+
+    branch_id = models.ForeignKey(Branch, null=True, on_delete=models.SET_NULL)
+    college_id = models.ForeignKey(College, null=True, on_delete=models.SET_NULL)
+
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.professor_name
