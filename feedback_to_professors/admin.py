@@ -6,7 +6,7 @@ from users import admin
 
 class FeedbackToProfessorsAdmin(main_admin.ModelAdmin):
     model = FeedbackToProfessors
-    list_display = ['feedback_id', 'professor', 'user', 'rating', 'message', ]
+    list_display = ['feedback_id', 'professor', 'student', 'semester', 'subject', 'rating', 'message', ]
 
 
 admin.site.register(FeedbackToProfessors, FeedbackToProfessorsAdmin)

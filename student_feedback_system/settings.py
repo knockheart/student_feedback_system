@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'metadata',
     "users",
     'feedback',
@@ -133,4 +135,3 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # LOGIN_URL = '/feedback/login/'
 # LOGIN_REDIRECT_URL = '/feedback/login/'
-

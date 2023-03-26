@@ -6,3 +6,5 @@ bootstrap4
 dpd_static_support
 whitenoise
 passlib
+djangorestframework
+django-filter
