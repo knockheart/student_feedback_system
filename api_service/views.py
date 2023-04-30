@@ -46,6 +46,72 @@ def add_student(request, *args, **kwargs):
         return Response({"error_message": str(exception)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@api_view(['PUT'])
+def update_student(request, *args, **kwargs):
+    """
+
+    Payload 1:
+
+    {
+        "email_id": "s@gmail.com",
+        "is_fingerprint_enrolled": true
+    }
+
+    Payload 2:
+
+    {
+        "user_id": "s@gmail.com",
+        "is_fingerprint_deleted": true
+    }
+
+    Payload 3:
+
+    {
+        "user_id": "s@gmail.com",
+        "is_fingerprint_need_re_enrolled": true
+    }
+
+    """
+    try:
+        print(type(request.data), request.data)
+        data = request.data
+
+        user_id = data.get("user_id")
+        email = data.get("email_id")
+        if user_id:
+            student = Student.objects.get(student_id=user_id)
+        elif email:
+            student = Student.objects.get(email=email)
+        else:
+            return Response([], status=status.HTTP_400_BAD_REQUEST)
+
+        is_fingerprint_enrolled = data.get("is_fingerprint_enrolled")
+        is_fingerprint_deleted = data.get("is_fingerprint_deleted")
+        is_fingerprint_need_re_enrolled = data.get("is_fingerprint_need_re_enrolled")
+        if is_fingerprint_enrolled is not None and is_fingerprint_enrolled:
+            student.is_fingerprint_enrolled = True
+            student.is_fingerprint_deleted = False
+            student.is_fingerprint_need_re_enrolled = False
+        elif is_fingerprint_deleted is not None and is_fingerprint_deleted:
+            student.is_fingerprint_enrolled = True
+            student.is_fingerprint_deleted = True
+            student.is_fingerprint_need_re_enrolled = False
+        elif is_fingerprint_need_re_enrolled is not None and is_fingerprint_need_re_enrolled:
+            student.is_fingerprint_enrolled = False
+            student.is_fingerprint_deleted = True
+            student.is_fingerprint_need_re_enrolled = True
+
+        student.save()
+
+        return Response([], status=status.HTTP_200_OK)
+    except KeyError as key_error:
+        print(key_error)
+        return Response({"error_message": str(key_error)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as exception:
+        print(exception)
+        return Response({"error_message": str(exception)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 @api_view(['GET'])
 def get_list_of_feedbacks_for_professor(request, professor_id):
     professor = Professor.objects.get(professor_id=professor_id)

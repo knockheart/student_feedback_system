@@ -60,6 +60,10 @@ class Student(models.Model):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
+    is_fingerprint_enrolled = models.BooleanField(default=False)
+    is_fingerprint_deleted = models.BooleanField(default=False)
+    is_fingerprint_need_re_enrolled = models.BooleanField(default=True)
+
     def __str__(self):
         return self.student_name
 
