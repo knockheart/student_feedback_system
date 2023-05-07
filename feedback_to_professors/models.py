@@ -1,6 +1,8 @@
 from django.db import models
 
-from users.models import Admin, Professor, Student
+from class_room.models import Subject
+from metadata.models import Semester
+from users.models import Professor, Student
 
 RATING_CHOICES = (
     ("1", "1"),
@@ -13,8 +15,8 @@ RATING_CHOICES = (
 
 class FeedbackToProfessors(models.Model):
     feedback_id = models.AutoField(primary_key=True)
-    semester = models.CharField(max_length=200, null=True)  # TODO: remove null
-    subject = models.CharField(max_length=200, null=True)  # TODO: remove null
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, default=None)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, default=None)
     rating = models.CharField(max_length=5, choices=RATING_CHOICES, default='*')
     message = models.TextField()
 

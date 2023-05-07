@@ -3,9 +3,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from api_service.serializers import StudentSerializer, ProfessorSerializer, BranchSerializer, CollegeSerializer
+from api_service.serializers import StudentSerializer, ProfessorSerializer, BranchSerializer, CollegeSerializer, \
+    SubjectSerializer, SemesterSerializer, FeedbackToProfessorsSerializer, FeedbackToProfessorsSerializerWithoutNest
+from class_room.models import Subject
 from feedback_to_professors.models import FeedbackToProfessors
-from metadata.models import Branch, College
+from metadata.models import Branch, College, Semester
 from users.models import Professor, Student
 
 
@@ -14,8 +16,8 @@ def post_feedback(request, *args, **kwargs):
     print(type(request.data), request.data)
     data = request.data
     FeedbackToProfessors(
-        semester=data["semester"],
-        subject=data["subject"],
+        semester=Semester.objects.get(semester_id=data["semester"]),
+        subject=Subject.objects.get(subject_id=data["subject"]),
         rating=data["rating"],
         message=data["message"],
         professor=Professor.objects.get(professor_id=data["professor_id"]),
@@ -115,15 +117,15 @@ def update_student(request, *args, **kwargs):
 @api_view(['GET'])
 def get_list_of_feedbacks_for_professor(request, professor_id):
     professor = Professor.objects.get(professor_id=professor_id)
-    fps = FeedbackToProfessors.objects.filter(professor=professor).values()
-    return Response(fps, status=status.HTTP_200_OK)
+    fps = FeedbackToProfessors.objects.filter(professor=professor)
+    return Response(FeedbackToProfessorsSerializerWithoutNest(fps, many=True).data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def get_list_of_feedbacks_from_student(request, student_id):
     student = Student.objects.get(student_id=student_id)
-    fps = FeedbackToProfessors.objects.filter(student=student).values()
-    return Response(fps, status=status.HTTP_200_OK)
+    fps = FeedbackToProfessors.objects.filter(student=student)
+    return Response(FeedbackToProfessorsSerializer(fps, many=True).data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -173,3 +175,27 @@ def get_all_branch(request):
 def get_all_college(request):
     professor = College.objects.all()
     return Response(CollegeSerializer(professor, many=True).data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_all_subjects(request):
+    semester_id = request.GET.get('semester_id')
+    subject_id = request.GET.get('subject_id')
+
+    if semester_id or subject_id:
+        filter_data = {}
+        if semester_id:
+            filter_data["semester_id"] = semester_id
+        if subject_id:
+            filter_data["subject_id"] = subject_id
+        subject = Subject.objects.filter(**filter_data)
+    else:
+        subject = Subject.objects.all()
+    return Response(SubjectSerializer(subject, many=True).data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_all_semester(request):
+    print(request.GET.get('x'))
+    semester = Semester.objects.all()
+    return Response(SemesterSerializer(semester, many=True).data, status=status.HTTP_200_OK)

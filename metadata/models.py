@@ -36,3 +36,12 @@ class Branch(models.Model):
 
     def __str__(self):
         return self.branch_name
+
+
+class Semester(models.Model):
+    semester_id = models.CharField(max_length=200, primary_key=True)
+    description = models.CharField(max_length=200)
+    year = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.year} : {self.semester_id} : {self.description}"
