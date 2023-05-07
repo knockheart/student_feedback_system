@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from metadata.models import Branch, College
+from metadata.models import Branch, College, Semester
 from .managers import CustomUserManager
 
 
@@ -56,6 +56,7 @@ class Student(models.Model):
 
     branch_id = models.ForeignKey(Branch, null=True, on_delete=models.SET_NULL)
     college_id = models.ForeignKey(College, null=True, on_delete=models.SET_NULL)
+    semester_id = models.ForeignKey(Semester, null=True, on_delete=models.SET_NULL)
 
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

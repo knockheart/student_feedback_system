@@ -61,10 +61,12 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Admin, CustomUserAdmin)
 
+ModelAdmin = admin.ModelAdmin
+
 
 class StudentAdmin(admin.ModelAdmin):
     model = Student
-    list_display = ['student_id', 'student_name', 'branch_id', 'email', 'phone_number']
+    list_display = ['student_id', 'student_name', 'semester_id', 'branch_id', 'email', 'phone_number']
     # list_editable = [ 'student_name', 'email', 'phone_number']
 
 

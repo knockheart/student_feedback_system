@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "users",
     'feedback',
     'feedback_to_professors',
+    "class_room",
 
     'bootstrap5',
     'crispy_forms',
